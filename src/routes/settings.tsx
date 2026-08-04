@@ -245,7 +245,7 @@ function SettingsPage() {
                       key={t.id}
                       className="flex items-center justify-between rounded-xl border border-border bg-surface/40 px-3 py-2.5"
                     >
-                      <Link to={`/teams/${t.id}`} className="flex items-center gap-3">
+                      <Link to="/teams/$teamId" params={{ teamId: t.id }} className="flex items-center gap-3">
                         <span className="text-lg">{t.emoji}</span>
                         <div>
                           <p className="text-sm font-semibold">{t.name}</p>

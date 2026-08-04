@@ -54,7 +54,7 @@ function NewsPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-10">
         {lead && (
-          <Link to={`/news/${lead.id}`} className="block">
+          <Link to="/news/$newsId" params={{ newsId: lead.id }} className="block">
             <article className="glass-card animate-fade-up rounded-3xl p-8 sm:p-10 transition-colors hover:border-primary/40">
               <span
                 className="text-[11px] font-bold uppercase tracking-[0.2em]"
@@ -79,7 +79,7 @@ function NewsPage() {
 
         <div className="stagger-children mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((n) => (
-            <Link key={n.id} to={`/news/${n.id}`} className="block">
+            <Link key={n.id} to="/news/$newsId" params={{ newsId: n.id }} className="block">
               <article className="glass-card h-full rounded-2xl p-6 transition-colors hover:border-primary/40">
                 <span
                   className="text-[10px] font-bold uppercase tracking-[0.15em]"
