@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Sportcast — Live Sports Dashboard" },
       {
         property: "og:description",
-        content: "Stay updated with real-time scores, stats and insights across every major league.",
+        content: "Real-time scores, stat comparisons and match insight across NBA, Premier League, MLB, NFL and NHL in one dashboard.",
       },
     ],
   }),

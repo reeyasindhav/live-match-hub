@@ -79,21 +79,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sportcast — Live Sports Scores, Stats & Analysis" },
+      { title: "Sportcast — Live Sports Dashboard" },
       {
         name: "description",
         content:
-          "Sportcast delivers live scores, match timelines, team and player statistics across NBA, Premier League, MLB, NFL and NHL.",
+          "Real-time scores, stat comparisons and match insight across NBA, Premier League, MLB, NFL and NHL in one dashboard.",
       },
       { name: "author", content: "Sportcast" },
-      { property: "og:title", content: "Sportcast — Live Sports Scores, Stats & Analysis" },
+      { property: "og:title", content: "Sportcast — Live Sports Dashboard" },
       {
         property: "og:description",
-        content: "Real-time scores, stat comparisons and match insight in one dark, fast dashboard.",
+        content: "Real-time scores, stat comparisons and match insight across NBA, Premier League, MLB, NFL and NHL in one dashboard.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Sportcast — Live Sports Dashboard" },
+      { name: "twitter:description", content: "Real-time scores, stat comparisons and match insight across NBA, Premier League, MLB, NFL and NHL in one dashboard." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/53375539-b0d9-43d4-8dd3-a4a567dc8a33/id-preview-c341765e--bf05b8d1-3077-4410-80ad-b1243fa47e8c.lovable.app-1785843422761.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/53375539-b0d9-43d4-8dd3-a4a567dc8a33/id-preview-c341765e--bf05b8d1-3077-4410-80ad-b1243fa47e8c.lovable.app-1785843422761.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
