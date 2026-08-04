@@ -162,7 +162,7 @@ function SettingsPage() {
                   className="grid size-10 place-items-center rounded-full text-lg font-bold text-primary-foreground"
                   style={{ backgroundColor: "var(--primary)" }}
                 >
-                  {name.trim() ? name.trim()[0].toUpperCase() : user.name[0].toUpperCase()}
+                  {(name.trim() || user.name).charAt(0).toUpperCase()}
                 </span>
                 <p className="text-sm text-muted-foreground">
                   {name.trim() || user.name} · {email.trim() || user.email}

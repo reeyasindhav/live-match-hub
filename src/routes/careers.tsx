@@ -249,7 +249,7 @@ function CareersPage() {
                 <Accordion
                   type="single"
                   collapsible
-                  value={openJobId ?? undefined}
+                  value={openJobId ?? ""}
                   onValueChange={(v) => setOpenJobId(v || null)}
                 >
                   {filtered.map((role) => (
