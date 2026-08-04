@@ -1,10 +1,12 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ChevronLeft, Star } from "lucide-react";
+import { useMemo } from "react";
+import { ChevronLeft, Star, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
 import { SiteShell } from "@/components/site-shell";
 import { FormRow, MatchCard } from "@/components/match-card";
 import { useAuth } from "@/lib/auth";
-import { getTeam, leagueToken, matchesByTeam, playersByTeam } from "@/lib/mock-data";
+import { getTeam, leagueToken, matchesByTeam, playersByTeam, teams } from "@/lib/mock-data";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/teams/$teamId")({
   loader: ({ params }) => {
@@ -17,7 +19,7 @@ export const Route = createFileRoute("/teams/$teamId")({
       { title: `${loaderData?.name ?? "Team"} — Squad, Form & Stats | Sportcast` },
       {
         name: "description",
-        content: `Season statistics, recent form, fixtures and squad profiles for ${loaderData?.name ?? "this team"}.`,
+        content: `Season statistics, recent form, fixtures, standings and squad profiles for ${loaderData?.name ?? "this team"}.`,
       },
       { property: "og:title", content: `${loaderData?.name ?? "Team"} — Squad, Form & Stats | Sportcast` },
       { property: "og:description", content: "Full team hub with fixtures, form and player profiles." },
@@ -41,9 +43,19 @@ function TeamPage() {
   const team = getTeam(teamId)!;
   const accent = leagueToken[team.league];
   const squad = playersByTeam(team.id);
-  const fixtures = matchesByTeam(team.id);
+  const fixtures = useMemo(() => matchesByTeam(team.id), [team.id]);
   const { user, toggleFavorite } = useAuth();
   const isFav = user?.favorites.includes(team.id) ?? false;
+
+  const leagueStandings = useMemo(() => {
+    return teams
+      .filter((t) => t.league === team.league)
+      .sort((a, b) => a.standing - b.standing);
+  }, [team.league]);
+
+  const liveNow = fixtures.filter((m) => m.status === "live");
+  const recent = fixtures.filter((m) => m.status === "final").slice(0, 3);
+  const upcoming = fixtures.filter((m) => m.status === "upcoming").slice(0, 3);
 
   return (
     <SiteShell>
@@ -99,17 +111,103 @@ function TeamPage() {
         </div>
       </section>
 
+      {liveNow.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-10">
+          <h2 className="flex items-center gap-2 font-display text-2xl font-bold">
+            <span className="size-2 animate-pulse-live rounded-full bg-live" />
+            Live now
+          </h2>
+          <div className="stagger-children mt-6 grid gap-5 md:grid-cols-2">
+            {liveNow.map((m) => (
+              <MatchCard key={m.id} match={m} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {recent.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-10">
+          <h2 className="font-display text-2xl font-bold">Recent results</h2>
+          <div className="stagger-children mt-6 grid gap-5 md:grid-cols-3">
+            {recent.map((m) => (
+              <MatchCard key={m.id} match={m} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {upcoming.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-10">
+          <h2 className="font-display text-2xl font-bold">Upcoming</h2>
+          <div className="stagger-children mt-6 grid gap-5 md:grid-cols-3">
+            {upcoming.map((m) => (
+              <MatchCard key={m.id} match={m} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {fixtures.length === 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-10">
+          <p className="text-sm text-muted-foreground">No fixtures scheduled right now.</p>
+        </section>
+      )}
+
       <section className="mx-auto grid max-w-7xl gap-6 px-4 py-10 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
-          <div>
-            <h2 className="font-display text-2xl font-bold">Fixtures & results</h2>
-            <div className="stagger-children mt-5 grid gap-5 sm:grid-cols-2">
-              {fixtures.map((m) => (
-                <MatchCard key={m.id} match={m} />
-              ))}
-              {fixtures.length === 0 && (
-                <p className="text-sm text-muted-foreground">No fixtures scheduled right now.</p>
-              )}
+          <div className="glass-card rounded-2xl p-6">
+            <div className="flex items-center justify-between">
+              <h2 className="font-display text-xl font-bold">League standings</h2>
+              <span className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground">
+                <TrendingUp className="size-3.5" /> {team.league}
+              </span>
+            </div>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="border-b border-border text-xs uppercase tracking-[0.15em] text-muted-foreground">
+                    <th className="pb-3 font-semibold">#</th>
+                    <th className="pb-3 font-semibold">Team</th>
+                    <th className="pb-3 font-semibold">Record</th>
+                    <th className="pb-3 font-semibold">Form</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {leagueStandings.map((t) => {
+                    const isCurrent = t.id === team.id;
+                    return (
+                      <tr
+                        key={t.id}
+                        className={cn(
+                          "transition-colors",
+                          isCurrent ? "bg-secondary/60" : "hover:bg-surface/60",
+                        )}
+                      >
+                        <td className="py-3">
+                          <span
+                            className="font-display text-base font-bold"
+                            style={{ color: isCurrent ? accent : undefined }}
+                          >
+                            {t.standing}
+                          </span>
+                        </td>
+                        <td className="py-3">
+                          <Link to={`/teams/${t.id}`} className="flex items-center gap-2">
+                            <span className="text-base">{t.emoji}</span>
+                            <span className={`font-semibold ${isCurrent ? "text-primary" : ""}`}>
+                              {t.name}
+                            </span>
+                          </Link>
+                        </td>
+                        <td className="py-3 tabular-nums text-muted-foreground">{t.record}</td>
+                        <td className="py-3">
+                          <FormRow form={t.form} />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
 
@@ -153,6 +251,23 @@ function TeamPage() {
               <p className="mb-2 text-[11px] uppercase tracking-[0.15em] text-muted-foreground">Last 5</p>
               <FormRow form={team.form} />
             </div>
+          </div>
+
+          <div className="glass-card rounded-2xl p-6">
+            <h2 className="font-display text-xl font-bold">Quick facts</h2>
+            <dl className="mt-4 space-y-3 text-sm">
+              {[
+                ["Stadium", team.stadium],
+                ["City", team.city],
+                ["Founded", team.founded.toString()],
+                ["Coach", team.coach],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <dt className="text-[11px] uppercase tracking-[0.15em] text-muted-foreground">{k}</dt>
+                  <dd className="mt-0.5 font-semibold">{v}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </aside>
       </section>

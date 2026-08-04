@@ -775,8 +775,9 @@ export type NewsItem = {
   id: string;
   title: string;
   excerpt: string;
+  body: string;
   league: League;
-  category: "Analysis" | "Transfer" | "Injury" | "Recap";
+  category: "Analysis" | "Recap" | "Transfer" | "Injury";
   author: string;
   readTime: string;
   time: string;
@@ -788,6 +789,8 @@ export const news: NewsItem[] = [
     title: "Haaland closes in on the all-time single-season scoring record",
     excerpt:
       "Two more goals against Arsenal put the Norwegian striker within four of a record that has stood for over a decade.",
+    body:
+      "Erling Haaland moved to within four goals of the all-time single-season scoring record after his clinical double against Arsenal at the Etihad. The Norwegian opener was a poacher’s finish from close range, but his second was pure power — a first-time strike from the edge of the box that left David Raya with no chance.\n\nPep Guardiola praised the timing of the runs and the relentless pressure Haaland applies on defenders. With ten games remaining, the title race is now intimately tied to whether the record books will be rewritten in Manchester.\n\nStat of the night: Haaland has now scored in 11 of his last 12 appearances across all competitions.",
     league: "PREMIER LEAGUE",
     category: "Analysis",
     author: "Imran Q.",
@@ -798,6 +801,8 @@ export const news: NewsItem[] = [
     id: "celtics-defense",
     title: "How Boston's switch-everything defense broke the Lakers' offense",
     excerpt: "A film breakdown of the third-quarter run that flipped the game in eleven possessions.",
+    body:
+      "The Celtics’ defensive scheme in the third quarter was a masterclass in communication and rotation. Over eleven possessions, Boston switched every screen, denied passing lanes and forced the Lakers into rushed, contested shots.\n\nJayson Tatum set the tone with two strip steals that led to transition threes, while Jrue Holiday’s perimeter pressure made life miserable for D’Angelo Russell. The Lakers shot 28% from the field in the quarter and committed six turnovers.\n\nWhat this means: If Boston keeps this defensive intensity, they are going to be extremely difficult to beat in a seven-game series.",
     league: "NBA",
     category: "Analysis",
     author: "Dana R.",
@@ -808,6 +813,8 @@ export const news: NewsItem[] = [
     id: "judge-mvp",
     title: "Aaron Judge is quietly building the strongest MVP case in a decade",
     excerpt: "Advanced numbers say the Yankees slugger is having the best offensive season of his career.",
+    body:
+      "Aaron Judge’s start to the season has been historic. Through 110 games, he is leading the majors in home runs, RBI and OPS while striking out at the lowest rate of his career.\n\nHis adjusted OPS+ of 195 would be the highest single-season mark in the live-ball era for a primary position player. Defensively, he has saved nearly two wins above replacement in right field.\n\nThe narrative is no longer whether Judge is an MVP candidate — it is whether anyone can mount a serious challenge.",
     league: "MLB",
     category: "Recap",
     author: "Chris V.",
@@ -818,6 +825,8 @@ export const news: NewsItem[] = [
     id: "chiefs-injury",
     title: "Chiefs list two starters as questionable ahead of Ravens clash",
     excerpt: "Kansas City's secondary could be short-handed for a game with playoff seeding implications.",
+    body:
+      "The Chiefs’ secondary could be significantly weakened for Sunday night’s matchup with the Ravens. Starting cornerback Trent McDuffie was ruled out Friday with a hamstring strain, while safety Justin Reid was limited in practice with a knee issue and listed as questionable.\n\nIf Reid cannot go, Kansas City will turn to rookie safety Coy Cronk on a short week — a significant drop in coverage ability and playoff experience.\n\nThe Ravens’ passing attack, led by Lamar Jackson and tight end Mark Andrews, is built to exploit exactly this kind of vulnerability.",
     league: "NFL",
     category: "Injury",
     author: "Sam T.",
@@ -828,6 +837,8 @@ export const news: NewsItem[] = [
     id: "leafs-trade",
     title: "Maple Leafs exploring a blue-line upgrade before the deadline",
     excerpt: "Toronto has been linked with two right-shot defencemen as the trade window narrows.",
+    body:
+      "With the trade deadline less than two weeks away, the Maple Leafs are actively pursuing right-shot defencemen who can quarterback the power play and log heavy minutes against top lines.\n\nSources indicate Toronto has held preliminary talks with two teams about rentals who would cost minimal prospects but provide immediate upgrade value. The Leafs’ current right-side options have struggled with consistency at 5-on-5.\n\nGeneral manager Brad Treliving has made no secret of his willingness to move prospects if it means improving the roster for a deep playoff run.",
     league: "NHL",
     category: "Transfer",
     author: "Alex M.",
@@ -838,6 +849,8 @@ export const news: NewsItem[] = [
     id: "curry-heat-check",
     title: "Curry's seven-three night carries Golden State past Philadelphia",
     excerpt: "The Warriors closed on a 14-2 run behind vintage off-ball movement from their captain.",
+    body:
+      "Stephen Curry hit seven three-pointers and scored 34 points as the Warriors erased a nine-point deficit in the final five minutes. The decisive sequence was a vintage Curry flurry: a pull-up three, a step-back three and a transition three in 98 seconds.\n\nSteve Kerr credited the team’s off-ball movement, which freed Curry repeatedly on screens set by Draymond Green and Kevon Looney. The Warriors shot 58% from three in the fourth quarter.\n\nPhiladelphia’s late-game defence fell apart after Joel Embiid picked up his sixth foul, leaving the Sixers without their anchor inside.",
     league: "NBA",
     category: "Recap",
     author: "Dana R.",
@@ -845,6 +858,8 @@ export const news: NewsItem[] = [
     time: "6 hrs ago",
   },
 ];
+
+export const getNews = (id: string) => news.find((n) => n.id === id);
 
 export const leagues: League[] = ["NBA", "PREMIER LEAGUE", "MLB", "NFL", "NHL"];
 

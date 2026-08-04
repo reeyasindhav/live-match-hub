@@ -10,12 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as CareersRouteImport } from './routes/careers'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LiveRouteImport } from './routes/live'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MlbRouteImport } from './routes/mlb'
+import { Route as NbaRouteImport } from './routes/nba'
 import { Route as NewsRouteImport } from './routes/news'
+import { Route as NflRouteImport } from './routes/nfl'
+import { Route as PremierLeagueRouteImport } from './routes/premier-league'
+import { Route as PressRouteImport } from './routes/press'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as AnalysisMatchIdRouteImport } from './routes/analysis.$matchId'
 import { Route as MatchesMatchIdRouteImport } from './routes/matches.$matchId'
+import { Route as NewsNewsIdRouteImport } from './routes/news.$newsId'
+import { Route as PlayersIndexRouteImport } from './routes/players.index'
 import { Route as PlayersPlayerIdRouteImport } from './routes/players.$playerId'
 import { Route as TeamsIndexRouteImport } from './routes/teams.index'
 import { Route as TeamsTeamIdRouteImport } from './routes/teams.$teamId'
@@ -23,6 +37,21 @@ import { Route as TeamsTeamIdRouteImport } from './routes/teams.$teamId'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareersRoute = CareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -40,9 +69,44 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MlbRoute = MlbRouteImport.update({
+  id: '/mlb',
+  path: '/mlb',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NbaRoute = NbaRouteImport.update({
+  id: '/nba',
+  path: '/nba',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NewsRoute = NewsRouteImport.update({
   id: '/news',
   path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NflRoute = NflRouteImport.update({
+  id: '/nfl',
+  path: '/nfl',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PremierLeagueRoute = PremierLeagueRouteImport.update({
+  id: '/premier-league',
+  path: '/premier-league',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PressRoute = PressRouteImport.update({
+  id: '/press',
+  path: '/press',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignupRoute = SignupRouteImport.update({
@@ -50,9 +114,29 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalysisMatchIdRoute = AnalysisMatchIdRouteImport.update({
+  id: '/analysis/$matchId',
+  path: '/analysis/$matchId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MatchesMatchIdRoute = MatchesMatchIdRouteImport.update({
   id: '/matches/$matchId',
   path: '/matches/$matchId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewsNewsIdRoute = NewsNewsIdRouteImport.update({
+  id: '/$newsId',
+  path: '/$newsId',
+  getParentRoute: () => NewsRoute,
+} as any)
+const PlayersIndexRoute = PlayersIndexRouteImport.update({
+  id: '/players/',
+  path: '/players/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlayersPlayerIdRoute = PlayersPlayerIdRouteImport.update({
@@ -73,90 +157,187 @@ const TeamsTeamIdRoute = TeamsTeamIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
-  '/news': typeof NewsRoute
+  '/mlb': typeof MlbRoute
+  '/nba': typeof NbaRoute
+  '/news': typeof NewsRouteWithChildren
+  '/nfl': typeof NflRoute
+  '/premier-league': typeof PremierLeagueRoute
+  '/press': typeof PressRoute
+  '/privacy': typeof PrivacyRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/analysis/$matchId': typeof AnalysisMatchIdRoute
   '/matches/$matchId': typeof MatchesMatchIdRoute
+  '/news/$newsId': typeof NewsNewsIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
   '/teams/$teamId': typeof TeamsTeamIdRoute
+  '/players/': typeof PlayersIndexRoute
   '/teams/': typeof TeamsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
-  '/news': typeof NewsRoute
+  '/mlb': typeof MlbRoute
+  '/nba': typeof NbaRoute
+  '/news': typeof NewsRouteWithChildren
+  '/nfl': typeof NflRoute
+  '/premier-league': typeof PremierLeagueRoute
+  '/press': typeof PressRoute
+  '/privacy': typeof PrivacyRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/analysis/$matchId': typeof AnalysisMatchIdRoute
   '/matches/$matchId': typeof MatchesMatchIdRoute
+  '/news/$newsId': typeof NewsNewsIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
   '/teams/$teamId': typeof TeamsTeamIdRoute
+  '/players': typeof PlayersIndexRoute
   '/teams': typeof TeamsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/careers': typeof CareersRoute
+  '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
   '/live': typeof LiveRoute
   '/login': typeof LoginRoute
-  '/news': typeof NewsRoute
+  '/mlb': typeof MlbRoute
+  '/nba': typeof NbaRoute
+  '/news': typeof NewsRouteWithChildren
+  '/nfl': typeof NflRoute
+  '/premier-league': typeof PremierLeagueRoute
+  '/press': typeof PressRoute
+  '/privacy': typeof PrivacyRoute
+  '/settings': typeof SettingsRoute
   '/signup': typeof SignupRoute
+  '/terms': typeof TermsRoute
+  '/analysis/$matchId': typeof AnalysisMatchIdRoute
   '/matches/$matchId': typeof MatchesMatchIdRoute
+  '/news/$newsId': typeof NewsNewsIdRoute
   '/players/$playerId': typeof PlayersPlayerIdRoute
   '/teams/$teamId': typeof TeamsTeamIdRoute
+  '/players/': typeof PlayersIndexRoute
   '/teams/': typeof TeamsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/careers'
+    | '/contact'
     | '/dashboard'
     | '/live'
     | '/login'
+    | '/mlb'
+    | '/nba'
     | '/news'
+    | '/nfl'
+    | '/premier-league'
+    | '/press'
+    | '/privacy'
+    | '/settings'
     | '/signup'
+    | '/terms'
+    | '/analysis/$matchId'
     | '/matches/$matchId'
+    | '/news/$newsId'
     | '/players/$playerId'
     | '/teams/$teamId'
+    | '/players/'
     | '/teams/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/careers'
+    | '/contact'
     | '/dashboard'
     | '/live'
     | '/login'
+    | '/mlb'
+    | '/nba'
     | '/news'
+    | '/nfl'
+    | '/premier-league'
+    | '/press'
+    | '/privacy'
+    | '/settings'
     | '/signup'
+    | '/terms'
+    | '/analysis/$matchId'
     | '/matches/$matchId'
+    | '/news/$newsId'
     | '/players/$playerId'
     | '/teams/$teamId'
+    | '/players'
     | '/teams'
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/careers'
+    | '/contact'
     | '/dashboard'
     | '/live'
     | '/login'
+    | '/mlb'
+    | '/nba'
     | '/news'
+    | '/nfl'
+    | '/premier-league'
+    | '/press'
+    | '/privacy'
+    | '/settings'
     | '/signup'
+    | '/terms'
+    | '/analysis/$matchId'
     | '/matches/$matchId'
+    | '/news/$newsId'
     | '/players/$playerId'
     | '/teams/$teamId'
+    | '/players/'
     | '/teams/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  CareersRoute: typeof CareersRoute
+  ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
   LiveRoute: typeof LiveRoute
   LoginRoute: typeof LoginRoute
-  NewsRoute: typeof NewsRoute
+  MlbRoute: typeof MlbRoute
+  NbaRoute: typeof NbaRoute
+  NewsRoute: typeof NewsRouteWithChildren
+  NflRoute: typeof NflRoute
+  PremierLeagueRoute: typeof PremierLeagueRoute
+  PressRoute: typeof PressRoute
+  PrivacyRoute: typeof PrivacyRoute
+  SettingsRoute: typeof SettingsRoute
   SignupRoute: typeof SignupRoute
+  TermsRoute: typeof TermsRoute
+  AnalysisMatchIdRoute: typeof AnalysisMatchIdRoute
   MatchesMatchIdRoute: typeof MatchesMatchIdRoute
   PlayersPlayerIdRoute: typeof PlayersPlayerIdRoute
   TeamsTeamIdRoute: typeof TeamsTeamIdRoute
+  PlayersIndexRoute: typeof PlayersIndexRoute
   TeamsIndexRoute: typeof TeamsIndexRoute
 }
 
@@ -167,6 +348,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/careers': {
+      id: '/careers'
+      path: '/careers'
+      fullPath: '/careers'
+      preLoaderRoute: typeof CareersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -190,11 +392,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mlb': {
+      id: '/mlb'
+      path: '/mlb'
+      fullPath: '/mlb'
+      preLoaderRoute: typeof MlbRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nba': {
+      id: '/nba'
+      path: '/nba'
+      fullPath: '/nba'
+      preLoaderRoute: typeof NbaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/news': {
       id: '/news'
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nfl': {
+      id: '/nfl'
+      path: '/nfl'
+      fullPath: '/nfl'
+      preLoaderRoute: typeof NflRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/premier-league': {
+      id: '/premier-league'
+      path: '/premier-league'
+      fullPath: '/premier-league'
+      preLoaderRoute: typeof PremierLeagueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/press': {
+      id: '/press'
+      path: '/press'
+      fullPath: '/press'
+      preLoaderRoute: typeof PressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signup': {
@@ -204,11 +455,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analysis/$matchId': {
+      id: '/analysis/$matchId'
+      path: '/analysis/$matchId'
+      fullPath: '/analysis/$matchId'
+      preLoaderRoute: typeof AnalysisMatchIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/matches/$matchId': {
       id: '/matches/$matchId'
       path: '/matches/$matchId'
       fullPath: '/matches/$matchId'
       preLoaderRoute: typeof MatchesMatchIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/news/$newsId': {
+      id: '/news/$newsId'
+      path: '/$newsId'
+      fullPath: '/news/$newsId'
+      preLoaderRoute: typeof NewsNewsIdRouteImport
+      parentRoute: typeof NewsRoute
+    }
+    '/players/': {
+      id: '/players/'
+      path: '/players'
+      fullPath: '/players/'
+      preLoaderRoute: typeof PlayersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/players/$playerId': {
@@ -235,18 +514,51 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface NewsRouteChildren {
+  NewsNewsIdRoute: typeof NewsNewsIdRoute
+}
+
+const NewsRouteChildren: NewsRouteChildren = {
+  NewsNewsIdRoute: NewsNewsIdRoute,
+}
+
+const NewsRouteWithChildren = NewsRoute._addFileChildren(NewsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  CareersRoute: CareersRoute,
+  ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
   LiveRoute: LiveRoute,
   LoginRoute: LoginRoute,
-  NewsRoute: NewsRoute,
+  MlbRoute: MlbRoute,
+  NbaRoute: NbaRoute,
+  NewsRoute: NewsRouteWithChildren,
+  NflRoute: NflRoute,
+  PremierLeagueRoute: PremierLeagueRoute,
+  PressRoute: PressRoute,
+  PrivacyRoute: PrivacyRoute,
+  SettingsRoute: SettingsRoute,
   SignupRoute: SignupRoute,
+  TermsRoute: TermsRoute,
+  AnalysisMatchIdRoute: AnalysisMatchIdRoute,
   MatchesMatchIdRoute: MatchesMatchIdRoute,
   PlayersPlayerIdRoute: PlayersPlayerIdRoute,
   TeamsTeamIdRoute: TeamsTeamIdRoute,
+  PlayersIndexRoute: PlayersIndexRoute,
   TeamsIndexRoute: TeamsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

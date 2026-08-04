@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Clock } from "lucide-react";
 import { SiteShell } from "@/components/site-shell";
@@ -54,44 +54,48 @@ function NewsPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-10">
         {lead && (
-          <article className="glass-card animate-fade-up rounded-3xl p-8 sm:p-10">
-            <span
-              className="text-[11px] font-bold uppercase tracking-[0.2em]"
-              style={{ color: leagueToken[lead.league] }}
-            >
-              {lead.league} · {lead.category}
-            </span>
-            <h2 className="mt-3 max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl">
-              {lead.title}
-            </h2>
-            <p className="mt-4 max-w-2xl text-muted-foreground">{lead.excerpt}</p>
-            <p className="mt-6 flex items-center gap-3 text-xs text-muted-foreground">
-              <span>{lead.author}</span>
-              <span className="flex items-center gap-1">
-                <Clock className="size-3.5" /> {lead.readTime}
+          <Link to={`/news/${lead.id}`} className="block">
+            <article className="glass-card animate-fade-up rounded-3xl p-8 sm:p-10 transition-colors hover:border-primary/40">
+              <span
+                className="text-[11px] font-bold uppercase tracking-[0.2em]"
+                style={{ color: leagueToken[lead.league] }}
+              >
+                {lead.league} · {lead.category}
               </span>
-              <span>{lead.time}</span>
-            </p>
-          </article>
+              <h2 className="mt-3 max-w-3xl font-display text-3xl font-bold leading-tight sm:text-4xl">
+                {lead.title}
+              </h2>
+              <p className="mt-4 max-w-2xl text-muted-foreground">{lead.excerpt}</p>
+              <p className="mt-6 flex items-center gap-3 text-xs text-muted-foreground">
+                <span>{lead.author}</span>
+                <span className="flex items-center gap-1">
+                  <Clock className="size-3.5" /> {lead.readTime}
+                </span>
+                <span>{lead.time}</span>
+              </p>
+            </article>
+          </Link>
         )}
 
         <div className="stagger-children mt-6 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((n) => (
-            <article key={n.id} className="glass-card rounded-2xl p-6">
-              <span
-                className="text-[10px] font-bold uppercase tracking-[0.15em]"
-                style={{ color: leagueToken[n.league] }}
-              >
-                {n.league} · {n.category}
-              </span>
-              <h3 className="mt-2 font-display text-lg font-bold leading-snug">{n.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{n.excerpt}</p>
-              <p className="mt-5 flex items-center gap-3 text-xs text-muted-foreground">
-                <span>{n.author}</span>
-                <span>{n.readTime}</span>
-                <span>{n.time}</span>
-              </p>
-            </article>
+            <Link key={n.id} to={`/news/${n.id}`} className="block">
+              <article className="glass-card h-full rounded-2xl p-6 transition-colors hover:border-primary/40">
+                <span
+                  className="text-[10px] font-bold uppercase tracking-[0.15em]"
+                  style={{ color: leagueToken[n.league] }}
+                >
+                  {n.league} · {n.category}
+                </span>
+                <h3 className="mt-2 font-display text-lg font-bold leading-snug">{n.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{n.excerpt}</p>
+                <p className="mt-5 flex items-center gap-3 text-xs text-muted-foreground">
+                  <span>{n.author}</span>
+                  <span>{n.readTime}</span>
+                  <span>{n.time}</span>
+                </p>
+              </article>
+            </Link>
           ))}
         </div>
       </section>

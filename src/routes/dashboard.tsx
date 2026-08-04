@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { Bell, Star, TrendingUp, Trophy } from "lucide-react";
+import { Bell, Settings, Star, TrendingUp, Trophy } from "lucide-react";
 import { toast } from "sonner";
 import { SiteShell } from "@/components/site-shell";
 import { FormRow, MatchCard } from "@/components/match-card";
@@ -33,7 +33,7 @@ function DashboardPage() {
 
   if (!ready || !user) {
     return (
-      <SiteShell ticker={false}>
+      <SiteShell ticker={false} footer={false}>
         <div className="mx-auto max-w-7xl px-4 py-24 text-center text-sm text-muted-foreground">
           Loading your dashboard...
         </div>
@@ -49,11 +49,22 @@ function DashboardPage() {
   const watchlist = players.filter((p) => user.favorites.includes(p.teamId)).slice(0, 5);
 
   return (
-    <SiteShell>
+    <SiteShell ticker={false} footer={false}>
       <section className="hero-glow border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-12">
-          <p className="animate-fade-up text-sm text-muted-foreground">Welcome back</p>
-          <h1 className="animate-fade-up font-display text-4xl font-bold capitalize sm:text-5xl">{user.name}</h1>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-12">
+          <div>
+            <p className="animate-fade-up text-sm text-muted-foreground">Welcome back</p>
+            <h1 className="animate-fade-up font-display text-4xl font-bold capitalize sm:text-5xl">{user.name}</h1>
+          </div>
+          <Link
+            to="/settings"
+            className="flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
+          >
+            <Settings className="size-4" />
+            Settings
+          </Link>
+        </div>
+        <div className="mx-auto max-w-7xl px-4 pb-8">
           <div className="stagger-children mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { icon: Star, label: "Teams followed", value: followed.length, color: "var(--epl)" },

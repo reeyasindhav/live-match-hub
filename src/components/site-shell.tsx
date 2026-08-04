@@ -1,9 +1,20 @@
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Activity, Home, LogOut, Menu, Newspaper, Search, Users, Zap } from "lucide-react";
+import { Activity, Home, LogOut, Menu, Newspaper, Search, Settings, Users, Zap } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { useAuth } from "@/lib/auth";
 import { matches, leagueToken } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const navItems = [
   { to: "/", label: "Home", icon: Home },
@@ -58,7 +69,7 @@ function Ticker() {
   );
 }
 
-export function SiteShell({ children, ticker = true }: { children: ReactNode; ticker?: boolean }) {
+export function SiteShell({ children, ticker = true, footer = true }: { children: ReactNode; ticker?: boolean; footer?: boolean }) {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
@@ -109,16 +120,42 @@ export function SiteShell({ children, ticker = true }: { children: ReactNode; ti
                   </span>
                   <span className="hidden capitalize sm:inline">{user.name}</span>
                 </Link>
-                <button
-                  aria-label="Sign out"
-                  onClick={() => {
-                    signOut();
-                    navigate({ to: "/" });
-                  }}
-                  className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-destructive/60 hover:text-destructive"
+                <Link
+                  to="/settings"
+                  className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
+                  aria-label="Settings"
                 >
-                  <LogOut className="size-4" />
-                </button>
+                  <Settings className="size-4" />
+                </Link>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <button
+                      aria-label="Sign out"
+                      className="grid size-9 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-destructive/60 hover:text-destructive"
+                    >
+                      <LogOut className="size-4" />
+                    </button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Log out?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        You will be signed out of your Sportcast account.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => {
+                          signOut();
+                          navigate({ to: "/" });
+                        }}
+                      >
+                        Log out
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               </div>
             ) : (
               <div className="flex items-center gap-2">
@@ -166,40 +203,69 @@ export function SiteShell({ children, ticker = true }: { children: ReactNode; ti
 
       <main>{children}</main>
 
-      <footer className="mt-20 border-t border-border bg-surface/40">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-                <Zap className="size-4" />
-              </span>
-              <span className="font-display text-lg font-bold">Sportcast</span>
+      {footer && (
+        <footer className="mt-20 border-t border-border bg-surface/40">
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground">
+                  <Zap className="size-4" />
+                </span>
+                <span className="font-display text-lg font-bold">Sportcast</span>
+              </div>
+              <p className="mt-3 max-w-xs text-sm text-muted-foreground">
+                Live scores, deep stats and match insight across every league — in one place.
+              </p>
             </div>
-            <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              Live scores, deep stats and match insight across every league — in one place.
-            </p>
+            {[
+              {
+                title: "Product",
+                links: [
+                  { label: "Live scores", to: "/live" },
+                  { label: "Match analysis", to: "/live" },
+                  { label: "Team hubs", to: "/teams" },
+                  { label: "Player profiles", to: "/players" },
+                ],
+              },
+              {
+                title: "Company",
+                links: [
+                  { label: "About", to: "/about" },
+                  { label: "Careers", to: "/careers" },
+                  { label: "Press", to: "/press" },
+                  { label: "Contact", to: "/contact" },
+                ],
+              },
+              {
+                title: "Legal",
+                links: [
+                  { label: "Privacy", to: "/privacy" },
+                  { label: "Terms", to: "/terms" },
+                ],
+              },
+            ].map((col) => (
+              <div key={col.title}>
+                <h4 className="text-sm font-semibold">{col.title}</h4>
+                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                  {col.links.map((l) => (
+                    <li key={l.label}>
+                      <Link
+                        to={l.to}
+                        className="cursor-pointer transition-colors hover:text-foreground"
+                      >
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
-          {[
-            { title: "Product", links: ["Live scores", "Match analysis", "Team hubs", "Player profiles"] },
-            { title: "Leagues", links: ["NBA", "Premier League", "MLB", "NFL"] },
-            { title: "Company", links: ["About", "Careers", "Press", "Contact"] },
-          ].map((col) => (
-            <div key={col.title}>
-              <h4 className="text-sm font-semibold">{col.title}</h4>
-              <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                {col.links.map((l) => (
-                  <li key={l} className="cursor-pointer transition-colors hover:text-foreground">
-                    {l}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
-          © 2026 Sportcast. All scores shown are demo data.
-        </div>
-      </footer>
+          <div className="border-t border-border py-5 text-center text-xs text-muted-foreground">
+            © 2026 Sportcast. All scores shown are demo data.
+          </div>
+        </footer>
+      )}
     </div>
   );
 }
