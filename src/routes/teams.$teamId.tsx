@@ -192,7 +192,7 @@ function TeamPage() {
                           </span>
                         </td>
                         <td className="py-3">
-                          <Link to={`/teams/${t.id}`} className="flex items-center gap-2">
+                          <Link to="/teams/$teamId" params={{ teamId: t.id }} className="flex items-center gap-2">
                             <span className="text-base">{t.emoji}</span>
                             <span className={`font-semibold ${isCurrent ? "text-primary" : ""}`}>
                               {t.name}

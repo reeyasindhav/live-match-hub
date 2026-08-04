@@ -120,7 +120,7 @@ function MatchAnalysisPage() {
 
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-5">
         <Link
-          to={`/matches/${matchId}`}
+          to="/matches/$matchId" params={{ matchId }}
           className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
         >
           <ChevronLeft className="size-4" /> Back to Match

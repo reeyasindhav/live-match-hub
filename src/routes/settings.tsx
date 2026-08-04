@@ -162,7 +162,7 @@ function SettingsPage() {
                   className="grid size-10 place-items-center rounded-full text-lg font-bold text-primary-foreground"
                   style={{ backgroundColor: "var(--primary)" }}
                 >
-                  {name.trim() ? name.trim()[0].toUpperCase() : user.name[0].toUpperCase()}
+                  {(name.trim() || user.name).charAt(0).toUpperCase()}
                 </span>
                 <p className="text-sm text-muted-foreground">
                   {name.trim() || user.name} · {email.trim() || user.email}
@@ -245,7 +245,7 @@ function SettingsPage() {
                       key={t.id}
                       className="flex items-center justify-between rounded-xl border border-border bg-surface/40 px-3 py-2.5"
                     >
-                      <Link to={`/teams/${t.id}`} className="flex items-center gap-3">
+                      <Link to="/teams/$teamId" params={{ teamId: t.id }} className="flex items-center gap-3">
                         <span className="text-lg">{t.emoji}</span>
                         <div>
                           <p className="text-sm font-semibold">{t.name}</p>

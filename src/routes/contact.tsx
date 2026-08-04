@@ -85,7 +85,7 @@ function ContactPage() {
                 Message
               </label>
               <textarea
-                rows="5"
+                rows={5}
                 className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-primary"
               />
             </div>
